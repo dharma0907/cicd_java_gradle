@@ -2,8 +2,8 @@
         agent any
         stages{
             stage("sonar quality check"){
-                agent{
-                    docker{
+                agent {
+                    docker {
                         image 'openjdk:11'
                     }
                 }
