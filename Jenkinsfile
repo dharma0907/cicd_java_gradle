@@ -5,9 +5,9 @@
         }
         stages{
             stage("sonar quality check"){
-                /*agent {
+                /* agent {
                     docker {
-                        image 'openjdk:11'
+                        image 'openjdk:11'      
                     }
                 }*/
                 steps{
@@ -26,7 +26,7 @@
                             }
                     }
                 }   
-        }
+            }
            stage("docker build and docker push"){
             //here we are building docker image and pusing image 
                 steps{
@@ -36,13 +36,13 @@
                        sh 'docker login -u admin -p $dockerpass 34.125.215.209:8083'
                        sh 'docker push 34.125.215.209:8083/springboot:${version}'
                        sh 'docker rmi 34.125.215.209:8083/springboot:${version}' 
-                     }  
-
+                       
+                       }
                     }
                 }
 
 
 
-           }
-    }      
- }
+        }
+    }
+    }   
