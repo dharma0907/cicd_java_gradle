@@ -44,7 +44,7 @@
 
 
         }
-        stage("docker build and docker push"){
+        stage("pushing images to neexus"){
             //here we are building docker image and pusing image 
                 steps{
                        script{
