@@ -44,5 +44,26 @@
 
 
         }
+        stage("docker build and docker push"){
+            //here we are building docker image and pusing image 
+                steps{
+                       script{
+
+                         withCredentials([string(credentialsId: 'nexuxpass', variable: 'nexux')]) {
+                            dir('kubernetes/'){
+                             sh '''   
+                              helmversion=$( helm show chart myapp | grep version | cut -d: -f 2 | tr -d ' ')
+                              curl -u admin:$nexux http://34.125.28.56/:8081/repository/helm-repo/ --upload-file myapp-${helmversion}.tgz -v
+                            '''
+                            }
+                         }
+                        
+                       
+                        }
+                    }
+                }
+
+
+
+        }
     }
-    }   
