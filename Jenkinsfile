@@ -32,10 +32,10 @@
                 steps{
                     script{
                        withCredentials([string(credentialsId: 'dockerpass', variable: 'dockerpass')]) {
-                       sh 'docker build -t 34.125.215.209:8083/springboot:${version} .'
-                       sh 'docker login -u admin -p $dockerpass 34.125.215.209:8083'
-                       sh 'docker push 34.125.215.209:8083/springboot:${version}'
-                       sh 'docker rmi 34.125.215.209:8083/springboot:${version}' 
+                       sh 'docker build -t  34.125.28.56:8083/springboot:${version} .'
+                       sh 'docker login -u admin -p $dockerpass 34.125.28.56:8083'
+                       sh 'docker push  34.125.28.56:8083/springboot:${version}'
+                       sh 'docker rmi  34.125.28.56:8083/springboot:${version}' 
                        
                        }
                     }
