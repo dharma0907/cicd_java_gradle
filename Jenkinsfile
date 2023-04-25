@@ -32,10 +32,10 @@
                 steps{
                     script{
                        withCredentials([string(credentialsId: 'dockerpass', variable: 'dockerpass')]) {
-                       sh 'docker build -t  34.125.28.56:8083/springboot:${version} .'
-                       sh 'docker login -u admin -p $dockerpass 34.125.28.56:8083'
-                       sh 'docker push  34.125.28.56:8083/springboot:${version}'
-                       sh 'docker rmi  34.125.28.56:8083/springboot:${version}' 
+                       sh 'docker build -t  34.125.152.152:8083/springboot:${version} .'
+                       sh 'docker login -u admin -p $dockerpass 34.125.152.152:8083'
+                       sh 'docker push  34.125.152.152:8083/springboot:${version}'
+                       sh 'docker rmi  34.125.152.152:8083/springboot:${version}' 
                        
                        }
                     }
@@ -53,7 +53,8 @@
                             dir('kubernetes/'){
                              sh '''   
                               helmversion=$( helm show chart myapp | grep version | cut -d: -f 2 | tr -d ' ')
-                              curl -u admin:$nexux http://34.125.28.56/:8081/repository/helm-repo/ --upload-file myapp-${helmversion}.tgz -v
+                                tar -czvf  myapp-${helmversion}.tgz myapp/
+                              curl -u admin:$nexux http://34.125.152.152:8081/repository/helm-repo/ --upload-file myapp-${helmversion}.tgz -v
                             '''
                             }
                          }
