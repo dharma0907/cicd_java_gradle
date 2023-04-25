@@ -1,0 +1,5 @@
+
+error in this file:
+curl -u admin:$nexux http://34.125.28.56/:8081/repository/helm-repo/ --upload-file myapp-${helmversion}.tgz -v
+
+curl -u admin:Luckky@0987 http://34.125.152.152:8081/repository/helm-repo/ --upload-file myapp-${helmversion}.tgz -v
