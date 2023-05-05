@@ -64,7 +64,27 @@
                     }
                 }
 
+            stage('Deploying application on k8s cluster') {
+              steps {
+                 script{
+                         withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubeconfig', namespace: '', serverUrl: 'https://10.182.0.5:6443']])  {
+                          dir('kubernetes/') {
+                            sh 'helm upgrade --install --set image.repository="34.125.214.226:8083/springapp" --set image.tag="${VERSION}" myjavaapp myapp/ '
+                        }
+                    }  
+                }
+             }
+           }
+           stage('verifying app deployment'){
+                steps{
+                    script{
+                       withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubeconfig', namespace: '', serverUrl: 'https://10.182.0.5:6443']]) {
+                         sh 'kubectl run curl --image=curlimages/curl -i --rm --restart=Never -- curl myjavaapp-myapp:8080'
 
+                        }
+                    }
+                }
+            }
 
         }
     }
