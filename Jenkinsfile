@@ -69,7 +69,7 @@
                  script{
                          withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubeconfig', namespace: '', serverUrl: 'https://10.182.0.5:6443']])  {
                           dir('kubernetes/') {
-                            sh 'helm upgrade --install --set image.repository="34.125.214.226:8083/springapp" --set image.tag="${VERSION}" myjavaapp myapp/ '
+                            sh 'helm upgrade --install --set image.repository="4.125.102.180:8083/springapp" --set image.tag="${VERSION}" myjavaapp myapp/ '
                         }
                     }  
                 }
