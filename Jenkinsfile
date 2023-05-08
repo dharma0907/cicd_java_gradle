@@ -54,7 +54,7 @@
                              sh '''   
                               helmversion=$( helm show chart myapp | grep version | cut -d: -f 2 | tr -d ' ')
                                 tar -czvf  myapp-${helmversion}.tgz myapp/
-                              curl -u admin:$nexux http://34.125.152.152:8081/repository/helm-repo/ --upload-file myapp-${helmversion}.tgz -v
+                              curl -u admin:$nexux http://34.125.102.180:8081/repository/helm-repo/ --upload-file myapp-${helmversion}.tgz -v
                             '''
                             }
                          }
