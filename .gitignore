@@ -1,5 +1,7 @@
 .gradle
 /build/
+#ignore some unwanted files
+../testdeploy.yaml
 
 # Ignore Gradle GUI config
 gradle-app.setting
