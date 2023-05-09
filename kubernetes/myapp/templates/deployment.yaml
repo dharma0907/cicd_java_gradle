@@ -11,16 +11,20 @@ spec:
       {{- include "myapp.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
         {{- include "myapp.selectorLabels" . | nindent 8 }}
     spec:
+      {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
-        - name: registry-secret
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-          command: ["/bin/sh"]
-          args: ["-c","sh /usr/local/tomcat/bin/startup.sh;while true; do echo hello; sleep 10;done"]
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
@@ -30,24 +34,21 @@ spec:
             httpGet:
               path: /
               port: http
-            initialDelaySeconds: 60
-            periodSeconds: 5
-            successThreshold: 1
-            failureThreshold: 3
-            timeoutSeconds: 10
           readinessProbe:
             httpGet:
               path: /
               port: http
-            initialDelaySeconds: 60
-            periodSeconds: 5
-            successThreshold: 1
-            failureThreshold: 3
-            timeoutSeconds: 10
           resources:
-            requests:
-              memory: 0.25Gi
-              cpu: 0.5
-            limits:
-              memory: 0.25Gi 
-              cpu: 0.5
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
