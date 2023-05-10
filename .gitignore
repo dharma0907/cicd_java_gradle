@@ -2,7 +2,7 @@
 /build/
 #ignore some unwanted files
 ../testdeploy.yaml
-
+./k8SecretforPrivateRegistryAuth
 # Ignore Gradle GUI config
 gradle-app.setting
 
