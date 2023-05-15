@@ -33,10 +33,10 @@
                 steps{
                     script{
                        withCredentials([string(credentialsId: 'dockerpass', variable: 'dockerpass')]) {
-                       sh 'docker build -t  34.16.138.243:8083/springboot:${version} .'
-                       sh 'docker login -u admin -p $dockerpass 34.16.138.243:8083'
-                       sh 'docker push  34.16.138.243:8083/springboot:${version}'
-                       sh 'docker rmi  34.16.138.243:8083/springboot:${version}' 
+                       sh 'docker build -t  34.16.149.74:8083/springboot:${version} .'
+                       sh 'docker login -u admin -p $dockerpass 34.16.149.74:8083'
+                       sh 'docker push  34.16.149.74:8083/springboot:${version}'
+                       sh 'docker rmi  34.16.149.74:8083/springboot:${version}' 
                        
                        }
                     }
@@ -55,7 +55,7 @@
                              sh '''   
                               helmversion=$( helm show chart myapp | grep version | cut -d: -f 2 | tr -d ' ')
                                 tar -czvf  myapp-${helmversion}.tgz myapp/
-                              curl -u admin:$nexux http://34.16.138.243:8081/repository/helm-repo/ --upload-file myapp-${helmversion}.tgz -v
+                              curl -u admin:$nexux http://34.16.149.74:8081/repository/helm-repo/ --upload-file myapp-${helmversion}.tgz -v
                             '''
                             }
                          }
@@ -70,7 +70,7 @@
                  script{
                          withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubeconfig', namespace: '', serverUrl: 'https://10.182.0.5:6443']])  {
                           dir('kubernetes/') {
-                            sh 'helm upgrade --install --set image.repository="34.16.138.243:8083/springapp" --set image.tag="${version}" myjavaapp myapp/ '
+                            sh 'helm upgrade --install --set image.repository="34.16.149.74:8083/springapp" --set image.tag="${version}" myjavaapp myapp/ '
                         }
                     }  
                 }
